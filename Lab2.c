@@ -75,6 +75,7 @@ int main(void)
 		case(0) :
 			if scanKeypad == 0){
 			LCDPrintString("Enter");
+			press = 0;
 			}
 				if (scanKeypad == 1){
 					TMR5 = 0;
@@ -102,6 +103,7 @@ int main(void)
 			}
 
 			if (valid == 0 && press == 3){
+				LCDMoveCursor(0, 0);
 				LCDPrintString("Bad")
 					press = 0;
 
@@ -112,6 +114,7 @@ int main(void)
 				}
 			}
 			else if (press == 3){
+				LCDMoveCursor(0, 0);
 				LCDPrintString("Good");
 				press = 0;
 
