@@ -49,10 +49,10 @@ int main(void)
 	PR5 = 0b000001;
 	IFS1bits.T5IF = 0;
 	IEC1bits.T5IE = 1;
-	T5CONbits.T32 = 1;
-	T5CONbits.TON = 1;
-	T5CONbits.TCKPS0 = 1;
-	T5CONbits.TCKPS1 = 1;
+	T4CONbits.T32 = 1;
+	T4CONbits.TON = 1;
+	T4CONbits.TCKPS0 = 1;
+	T4CONbits.TCKPS1 = 1;
 
 
 	// TODO: Initialize and configure IOs, LCD (using your code from Lab 1), 
@@ -73,7 +73,8 @@ int main(void)
 		case (state){
 
 		case(0) :
-			if scanKeypad == 0){
+			if (scanKeypad == 0){
+			LCDMoveCursor(0, 0);
 			LCDPrintString("Enter");
 			press = 0;
 			}
@@ -82,7 +83,7 @@ int main(void)
 					count = 0;
 					state = 1;
 				}
-
+				break;
 
 		case(1) :
 			key = KeypadScan();
@@ -91,7 +92,7 @@ int main(void)
 				LCDPrintChar(key);
 			}
 
-			if ((key - database[press] == 0) && valid != 0){
+			if ((key - database[press - 1] == 0) && valid != 0){
 				valid = 1;
 				TMR5 = 0;
 				count = 0;
@@ -102,7 +103,7 @@ int main(void)
 				count = 0;
 			}
 
-			if (valid == 0 && press == 3){
+			if (valid == 0 && press == 4){
 				LCDMoveCursor(0, 0);
 				LCDPrintString("Bad")
 					press = 0;
@@ -113,7 +114,7 @@ int main(void)
 					count = 0;
 				}
 			}
-			else if (press == 3){
+			else if (press == 4){
 				LCDMoveCursor(0, 0);
 				LCDPrintString("Good");
 				press = 0;
@@ -125,9 +126,7 @@ int main(void)
 				}
 
 			}
-
-
-
+			break;
 
 			scanKeypad = 0;
 
